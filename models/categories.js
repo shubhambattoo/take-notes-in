@@ -7,6 +7,10 @@ const categorySchema = new mongoose.Schema({
     trim: true,
     maxlength: 50,
     required: [true, 'a name is required']
+  },
+  created: {
+    type: Date,
+    default: Date.now()
   }
 }, {
   toJSON: { virtuals: true },
