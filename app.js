@@ -4,6 +4,7 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 
 const categoryRoutes = require("./routes/categoryRoutes");
+const notesRoutes = require("./routes/notesRoutes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/category", categoryRoutes);
+app.use("/api/notes", notesRoutes);
 
 app.use("*", (req, res, next) => {
   return next(new AppError('Not Found', 404))

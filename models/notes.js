@@ -7,14 +7,6 @@ const notesSchema = new mongoose.Schema({
     minlength: 2,
     trim: true
   },
-  created : {
-    type: Date,
-    default : Date.now()
-  },
-  updated : {
-    type: Date,
-    default : Date.now()
-  },
   favorite:{
     type: Boolean,
     default: false
@@ -24,6 +16,7 @@ const notesSchema = new mongoose.Schema({
     ref: "Category"
   }
 }, {
+  timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
