@@ -4,6 +4,7 @@ const ApiFeatures = require("./../utils/apiFeatures");
 
 exports.createOne = (Model, name = "data") =>
   catchAsync(async (req, res, next) => {
+    req.body.creator = req.user.id;
     const doc = await Model.create(req.body);
 
     res.status(201).json({
@@ -53,6 +54,7 @@ exports.updateOne = (Model, name = "data") =>
 
 exports.getOne = (Model, popOptions = "", name = "data") =>
   catchAsync(async (req, res, next) => {
+    // console.log("came here");
     let query = Model.findById(req.params.id);
     if (popOptions) query = Model.findById(req.params.id).populate(popOptions);
 
@@ -68,9 +70,10 @@ exports.getOne = (Model, popOptions = "", name = "data") =>
     });
   });
 
-exports.getAll = (Model, name = "data") => 
-  catchAsync(async(req, res, next) => {
-    const features = new ApiFeatures(Model.find(), req.query)
+exports.getAll = (Model, name = "data") =>
+  catchAsync(async (req, res, next) => {
+    const query = { creator: req.user.id };
+    const features = new ApiFeatures(Model.find(query), req.query)
       .sort()
       .paginate();
 

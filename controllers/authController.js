@@ -16,7 +16,7 @@ const createAndSendToken = (user, statusCode, res, sendUser = false) => {
   user.password = null;
 
   let response = {
-    status: "success",
+    status: "ok",
     token
   };
   response = sendUser ? { ...response, data: { user } } : response;

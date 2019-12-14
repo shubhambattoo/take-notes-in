@@ -33,7 +33,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).json({
-    status: "success",
+    status: "ok",
     data: {
       user: upUser
     }
@@ -43,12 +43,13 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
-    status: "success",
+    status: "ok",
     data: null
   });
 });
 
 exports.getMe = (req, res, next) => {
+  // console.log("came here");
   req.params.id = req.user.id;
   next();
 };
@@ -62,7 +63,7 @@ exports.createUser = (req, res) => {
 
 // For Admins Mostly
 exports.getUsers = factory.getAll(User, "users");
-exports.getUser = factory.getOne(User, "user");
+exports.getUser = factory.getOne(User, null, "user");
 // Do NOT Update passwords with this
 exports.updateUser = factory.updateOne(User, "user");
 exports.deleteUser = factory.deleteOne(User);

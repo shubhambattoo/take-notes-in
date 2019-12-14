@@ -14,6 +14,11 @@ const notesSchema = new mongoose.Schema({
   category: {
     type : mongoose.Schema.ObjectId,
     ref: "Category"
+  },
+  creator: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "note must belong to a creator"]
   }
 }, {
   timestamps: true,
